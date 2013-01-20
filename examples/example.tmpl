@@ -1,0 +1,51 @@
+// -*- closure-template-html -*-
+
+{namespace dataForms.example.view}
+
+{template registrationPage}
+    <!doctype html>{\n}
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>registration</title>
+        </head>
+
+        <body>
+            <form method="post" style="border: 1px solid rgba(0, 0, 0, .1); width: 300px; margin: 0 auto; padding: 1em;">
+                {foreach $fieldkey in keys($form)}
+                    {let $field="$form[$fieldkey]"}
+                        <div style="margin: 1em 0;">
+                            {if $field.itype != 'checkbox'}
+                                <div>
+                                    <label for="{$fieldkey}">
+                                        <strong>{$field.label}</strong>
+                                    </label>
+                                </div>
+                            
+                                <input id="{$fieldkey}"
+                                       name="{$fieldkey}"
+                                       type="{$field.itype or 'text'}"
+                                       {if $field.value}value="{$field.value}"{/if} />
+                                   
+                                {if $field.error}
+                                    <div style="color: red">{$field.error}</div>
+                                {/if}
+                            {else}
+                                <input id="{$fieldkey}"
+                                       name="{$fieldkey}"
+                                       type="checkbox"
+                                       {if $field.value}
+                                           checked="checked"
+                                       {/if} />
+                                <label for="{$fieldkey}">{$field.label}</label>
+                            {/if}
+                        </div>
+                    {/let}
+                {/foreach}
+            
+                <input type="submit" />
+            </form>
+        </body>
+    </html>
+{/template}
+

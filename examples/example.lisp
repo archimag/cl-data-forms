@@ -3,8 +3,8 @@
 (ql:quickload "local-time")
 (ql:quickload "restas")
 (ql:quickload "closure-template")
-
-(asdf:operate 'asdf:load-op '#:data-forms)
+(ql:quickload "data-forms")
+;;(asdf:operate 'asdf:load-op '#:data-forms)
 
 (closure-template:compile-cl-templates
  (merge-pathnames #P"example.tmpl" (or *load-pathname* *compile-file-pathname*)))
@@ -29,7 +29,7 @@
     :initform nil
     :stype data-sift:email
     :required t
-    :label "Email Address")))
+    :label "E-mail")))
 
 ;; user password form
 
@@ -45,7 +45,7 @@
     :initarg |confirmPassword|
     :initform nil
     :itype "password"
-    :label "Confirm password")))
+    :label "Password (Confirm)")))
 
 (defmethod shared-initialize :after ((form user-password-form) slot-names &key)
   (unless (equal (slot-value form 'password) (slot-value form 'confirm-password))
@@ -77,7 +77,7 @@
    (keep-me-signed
     :initform nil
     :initarg |keepMeSigned|
-    :label "Keep me signed-in on this computer."
+    :label "Remember me"
     :itype "checkbox")))
 
 ;; routes
